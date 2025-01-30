@@ -6,49 +6,77 @@
 #    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/01/24 17:33:28 by egache           ###   ########.fr        #
+#    Updated: 2025/01/31 00:29:32 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HEAD	=	include/so_long.h
+LIBS		:=	mlx gnl m
+LIBS_TARGET	:=				\
+	mlx_linux/libmlx.a	\
+	get_next_line/libgnl.a	\
 
-MLX_HEAD=	minilibx-linux/mlx.h
+HEAD		:=				\
+include						\
+mlx_linux				\
+get_next_line/include		\
 
-NAME	=	so_long
+NAME	:=	so_long
 
-SRCS_DIR=	src/
+SRC_DIR	:=	src
+SRC	:=	so_long.c
+SRC	:=	$(SRC:%=$(SRC_DIR)/%)
 
-SRCS	=	so_long.c\
+BUILD_DIR:=	.build
+OBJ		:=    $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+DEP		:=	$(OBJ:%.o=.d)
 
-OBJS	=	${SRCS:%.c=${OBJS_DIR}%.o}
+CC		:=	clang
+CFLAGS	:=	-Wall -Wextra -Werror
+INCLUDE	:=	$(addprefix -I,$(HEAD)) -MMD -MP
+LDFLAGS	:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
+LDLIBS	:=	$(addprefix -l,$(LIBS))
 
-OBJS_DIR=	objs/
+AR	:=	ar -rcs
 
-MLX		=	minilibx-linux/libmlx.a
+MAKEFLAGS	+=	--silent --no-print-directory
 
-CC	=	cc
+DIR_DUP	=	mkdir -p $(@D)
 
-AR	=	ar -rc
+RM	:=	rm -f
+RMF	:=	rm -rf
 
-FLAGS	=	-Wall -Wextra -Werror
+all	:	$(NAME)
 
-all			:	${NAME}
+$(NAME)	:	$(OBJ) $(LIBS_TARGET)
+			$(CC) $(LDFLAGS) $(OBJ) $(LDLIBS) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+			$(info CREATED $(NAME))
 
-${OBJS_DIR}	:
-			mkdir -p ${OBJS_DIR}
+$(LIBS_TARGET)	:
+			@$(MAKE) -C $(@D)
 
-${OBJS} 	:   ${OBJS_DIR}%.o : ${SRCS_DIR}%.c ${HEAD} ${MLX_HEAD} Makefile
-			${CC} ${FLAGS} -Iinclude -Imlx_linux -O3 -c $< -o $@
+$(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c
+			$(DIR_DUP)
+			$(CC) $(CFLAGS) $(INCLUDE) -Imlx_linux -O3 -c -o $@ $<
+			$(info CREATED $@)
 
-${NAME}		:	${OBJS_DIR} ${OBJS} ${HEAD}
-			${CC} ${OBJS} ${MLX} -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o ${NAME}
+-include $(DEP)
 
-clean		:
-			rm -rf ${OBJS}
+clean:
+			$(MAKE) clean -C get_next_line
+			$(MAKE) clean -s -C mlx_linux
+			$(RM) $(OBJ) $(DEP)
+			$(RMF) $(BUILD_DIR)
 
-fclean		:	clean
-			rm -f ${NAME}
+fclean:	clean
+			$(MAKE) fclean -C get_next_line
+			$(MAKE) clean -s -C mlx_linux
+			$(RM) $(NAME)
+			$(info CLEANED $(NAME))
 
-re			:	fclean all
+re:
+			$(MAKE) fclean
+			$(MAKE) all
 
-.PHONY		:	all clean fclean re
+.PHONY:	all clean fclean re
+
+.SILENT:
