@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/02/03 15:47:56 by teatime          ###   ########.fr       */
+/*   Created: 2024/11/18 15:11:33 by egache            #+#    #+#             */
+/*   Updated: 2024/11/27 16:35:18 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-#include "../mlx_linux/mlx.h" // modifier makefile pour enlever chemin !!!!!
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
+void	*ft_calloc(size_t nitems, size_t size)
+{
+	char	*str;
 
-#endif
+	if (size != 0 && nitems > SIZE_MAX / size)
+		return (NULL);
+	str = malloc(nitems * size);
+	if (!str)
+		return (NULL);
+	ft_bzero(str, nitems * size);
+	return (str);
+}

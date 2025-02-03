@@ -3,22 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/01/31 00:29:32 by egache           ###   ########.fr        #
+#    Updated: 2025/02/03 16:07:28 by teatime          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBS		:=	mlx gnl m
+LIBS		:=	mlx gnl ft m
 LIBS_TARGET	:=				\
-	mlx_linux/libmlx.a	\
+	mlx_linux/libmlx.a		\
 	get_next_line/libgnl.a	\
+	libft/libft.addprefix	\
 
 HEAD		:=				\
 include						\
-mlx_linux				\
+mlx_linux					\
 get_next_line/include		\
+libft
 
 NAME	:=	so_long
 
@@ -33,8 +35,8 @@ DEP		:=	$(OBJ:%.o=.d)
 CC		:=	clang
 CFLAGS	:=	-Wall -Wextra -Werror
 INCLUDE	:=	$(addprefix -I,$(HEAD)) -MMD -MP
-LDFLAGS	:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
-LDLIBS	:=	$(addprefix -l,$(LIBS))
+LIBDIR	:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
+LIBNAME	:=	$(addprefix -l,$(LIBS))
 
 AR	:=	ar -rcs
 
@@ -48,7 +50,7 @@ RMF	:=	rm -rf
 all	:	$(NAME)
 
 $(NAME)	:	$(OBJ) $(LIBS_TARGET)
-			$(CC) $(LDFLAGS) $(OBJ) $(LDLIBS) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+			$(CC) $(LIBDIR) $(OBJ) $(LIBNAME) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 			$(info CREATED $(NAME))
 
 $(LIBS_TARGET)	:
@@ -62,15 +64,17 @@ $(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c
 -include $(DEP)
 
 clean:
-			$(MAKE) clean -C get_next_line
-			$(MAKE) clean -s -C mlx_linux
 			$(RM) $(OBJ) $(DEP)
 			$(RMF) $(BUILD_DIR)
+			$(MAKE) clean -C get_next_line
+			$(MAKE) clean -C libft
+			$(MAKE) clean -s -C mlx_linux
 
 fclean:	clean
-			$(MAKE) fclean -C get_next_line
-			$(MAKE) clean -s -C mlx_linux
 			$(RM) $(NAME)
+			$(MAKE) fclean -C get_next_line
+			$(MAKE) fclean -C libft
+			$(MAKE) clean -s -C mlx_linux
 			$(info CLEANED $(NAME))
 
 re:
