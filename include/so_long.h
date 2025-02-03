@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/01/30 23:51:09 by egache           ###   ########.fr       */
+/*   Updated: 2025/02/03 15:47:56 by teatime          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 
 #include "../mlx_linux/mlx.h" // modifier makefile pour enlever chemin !!!!!
 #include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 #endif
