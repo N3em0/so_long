@@ -6,7 +6,7 @@
 #    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/02/03 16:07:28 by teatime          ###   ########.fr        #
+#    Updated: 2025/02/04 16:27:23 by teatime          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,19 +14,22 @@ LIBS		:=	mlx gnl ft m
 LIBS_TARGET	:=				\
 	mlx_linux/libmlx.a		\
 	get_next_line/libgnl.a	\
-	libft/libft.addprefix	\
+	libft/libft.a			\
 
 HEAD		:=				\
 include						\
 mlx_linux					\
 get_next_line/include		\
-libft
+libft						\
 
 NAME	:=	so_long
 
 SRC_DIR	:=	src
-SRC	:=	so_long.c
-SRC	:=	$(SRC:%=$(SRC_DIR)/%)
+SRC		:=					\
+so_long.c 					\
+parsing.c					\
+
+SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 
 BUILD_DIR:=	.build
 OBJ		:=    $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -51,15 +54,15 @@ all	:	$(NAME)
 
 $(NAME)	:	$(OBJ) $(LIBS_TARGET)
 			$(CC) $(LIBDIR) $(OBJ) $(LIBNAME) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-			$(info CREATED $(NAME))
+			$(info CREATED CACA $(NAME))
 
 $(LIBS_TARGET)	:
 			@$(MAKE) -C $(@D)
 
 $(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(DIR_DUP)
-			$(CC) $(CFLAGS) $(INCLUDE) -Imlx_linux -O3 -c -o $@ $<
-			$(info CREATED $@)
+			$(CC) $(CFLAGS) $(info INCLUDE paths: $(INCLUDE)) $(INCLUDE) -O3 -c -o $@ $<
+			$(info CREATED PIPI $@)
 
 -include $(DEP)
 
