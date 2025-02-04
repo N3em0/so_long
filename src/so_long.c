@@ -1,30 +1,4 @@
 #include "so_long.h"
-#include <stdlib.h>
-#include <time.h>
-
-typedef struct s_data
-{
-	void	*img;
-	void	*chara;
-	void	*empty;
-	void	*mlx;
-	void	*win;
-}			t_data;
-
-int	ciao(t_data *data)
-{
-	printf("allo ?");
-	if (data->img)
-		mlx_destroy_image(data->mlx, data->img);
-	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);
-	if (data->mlx)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
-	exit(0);
-}
 
 int	key_hook(int keycode, t_data *data)
 {
@@ -39,67 +13,48 @@ int	key_hook(int keycode, t_data *data)
 	return (0);
 }
 
-int	main(void)
+int	ciao(t_data *data)
 {
-	t_data	img;
+	printf("allo ?");
+	// if (data->img)
+	// 	mlx_destroy_image(data->mlx, data->img);
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	exit(0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	data;
+	t_map	map;
 	int		img_width;
 	int		img_height;
-	time_t	start_time;
 
-	img.mlx = mlx_init();
-	printf("salut 1\n");
-	img.win = mlx_new_window(img.mlx, 800, 400, "yoyoyoyo");
-	printf("salut 2\n");
-	img.img = mlx_xpm_file_to_image(img.mlx, "img/wall.xpm", &img_width,
-			&img_height);
-	img.chara = mlx_xpm_file_to_image(img.mlx, "img/char.xpm", &img_width,
-			&img_height);
-	img.empty = mlx_xpm_file_to_image(img.mlx, "img/empty.xpm", &img_width,
-			&img_height);	
-	printf("salut 3\n");
-	mlx_put_image_to_window(img.mlx, img.win, img.img, 400, 200);
-	
-	// --------------- ANIMATION IMAGE
-	while (1)
-	{
-		start_time = time(NULL);
-		while (difftime(time(NULL), start_time) < 1.0) 
-		{
-			mlx_put_image_to_window(img.mlx, img.win, img.chara, 0, 0);
-		}
-		start_time = time(NULL);
-		while (difftime(time(NULL), start_time) < 1.0) 
-		{
-			mlx_put_image_to_window(img.mlx, img.win, img.empty, 0, 0);
-			//printf("second in second : %f\n", seconds);
-		}
-	}
-	mlx_hook(img.win, 17, 1L << 0, ciao, &img);
-	mlx_key_hook(img.win, key_hook, &img);
-	mlx_loop(img.mlx);
+	(void)argc;
+	if (argc != 2)
+		return 0;
+	ft_memset(&map, 0, sizeof(t_map));
+	ft_memset(&data, 0, sizeof(t_data));
+	map_copy(argv, &map);
+	printf("caca");
+	data.mlx = mlx_init();
+	data.win = mlx_new_window(data.mlx, 120 * (map.width - 1), 120 * map.height, "salut");
+	data.chacha = mlx_xpm_file_to_image(data.mlx, "img/char.xpm", &img_width, &img_height);
+	data.wall = mlx_xpm_file_to_image(data.mlx, "img/wall.xpm", &img_width, &img_height);
+	data.empty = mlx_xpm_file_to_image(data.mlx, "img/empty.xpm", &img_width, &img_height);
+	data.item = mlx_xpm_file_to_image(data.mlx, "img/c.xpm", &img_width, &img_height);
+	data.oexit = mlx_xpm_file_to_image(data.mlx, "img/open.xpm", &img_width, &img_height);
+	// mlx_put_image_to_window(data.mlx, data.win, data.item, map.x * 100, map.y * 100);
+	// y++;
+	// if (map.map[map->x][map->y] == '1')
+	// 	mlx_put_image_to_window(data.mlx, data.win, data.empty, map.x * 100, map.y * 100);
+	map_image(&map, &data);
+	mlx_hook(data.win, 17, 1L << 0, ciao, &data);
+	mlx_key_hook(data.win, key_hook, &data);
+	mlx_loop(data.mlx);
 }
-// -------- ANIMATION IMAGE DESTROY A CHAQUE FOIS
-// while (1)
-// 	{
-// 		start_time = time(NULL);
-// 		while (difftime(time(NULL), start_time) < 1.0) 
-// 		{
-// 			img.img = mlx_xpm_file_to_image(img.mlx, "img/empty.xpm", &img_width,
-// 			&img_height);
-// 			mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
-// 		}
-// 		mlx_destroy_image(img.mlx, img.img);
-// 		start_time = time(NULL);
-// 		while (difftime(time(NULL), start_time) < 1.0) 
-// 		{
-// 			img.img = mlx_xpm_file_to_image(img.mlx, "img/wall.xpm", &img_width,
-// 			&img_height);
-// 			mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
-// 			//printf("second in second : %f\n", seconds);
-// 		}
-// 		mlx_destroy_image(img.mlx, img.img);
-// 	}
-// 	mlx_hook(img.win, 17, 1L << 0, ciao, &img);
-// 	mlx_key_hook(img.win, key_hook, &img);
-// 	mlx_loop(img.mlx);
-// }
