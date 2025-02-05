@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
+#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/02/04 16:27:23 by teatime          ###   ########.fr        #
+#    Updated: 2025/02/05 15:02:13 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ parsing.c					\
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 
 BUILD_DIR:=	.build
-OBJ		:=    $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+OBJ		:=	$(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP		:=	$(OBJ:%.o=.d)
 
 CC		:=	clang
