@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/02/06 21:48:18 by egache           ###   ########.fr        #
+#    Updated: 2025/02/10 20:38:03 by teatime          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,10 @@ NAME	:=	so_long
 SRC_DIR	:=	src
 SRC		:=					\
 so_long.c 					\
-parsing.c					\
+map_check.c					\
+display_image.c				\
+free_exit.c					\
+map_initialisation.c		\
 
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 

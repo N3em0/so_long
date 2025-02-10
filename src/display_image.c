@@ -1,0 +1,68 @@
+#include "so_long.h"
+
+int	map_loadimage(t_solong *sl)
+{
+	int	img_width;
+	int	img_height;
+		
+	sl->sprite->chacha = mlx_xpm_file_to_image(sl->data->mlx, "img/char.xpm",
+			&img_width, &img_height);
+	sl->sprite->wall = mlx_xpm_file_to_image(sl->data->mlx, "img/wall.xpm",
+			&img_width, &img_height);
+	sl->sprite->empty = mlx_xpm_file_to_image(sl->data->mlx, "img/empty.xpm",
+			&img_width, &img_height);
+	sl->sprite->loot = mlx_xpm_file_to_image(sl->data->mlx, "img/c.xpm",
+			&img_width, &img_height);
+	sl->sprite->cexit = mlx_xpm_file_to_image(sl->data->mlx, "img/cexit.xpm",
+			&img_width, &img_height);
+	sl->sprite->oexit = mlx_xpm_file_to_image(sl->data->mlx, "img/oexit.xpm",
+			&img_width, &img_height);
+	if (!sl->sprite->chacha || !sl->sprite->wall || !sl->sprite->loot || !sl->sprite->cexit || !sl->sprite->oexit)
+		return (1);
+	return (0);
+}
+
+void	map_put_image(t_solong *sl)
+{
+	if (sl->map->map[sl->map->x][sl->map->y] == '1')
+	{
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->wall,
+			sl->map->y * 120, sl->map->x * 120);
+	}
+	if (sl->map->map[sl->map->x][sl->map->y] == '0')
+	{
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
+			sl->map->y * 120, sl->map->x * 120);
+	}
+	if (sl->map->map[sl->map->x][sl->map->y] == 'C')
+	{
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->loot,
+			sl->map->y * 120, sl->map->x * 120);
+	}
+	if (sl->map->map[sl->map->x][sl->map->y] == 'E')
+	{
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->oexit,
+			sl->map->y * 120, sl->map->x * 120);
+	}
+	if (sl->map->map[sl->map->x][sl->map->y] == 'P')
+	{
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win,
+			sl->sprite->chacha, sl->map->y * 120, sl->map->x * 120);
+	}
+}
+
+int	map_put_all_image(t_solong *sl)
+{
+	while (sl->map->x < sl->map->height)
+	{
+		while (sl->map->y < sl->map->width)
+		{
+			map_put_image(sl);
+			sl->map->y++;
+		}
+		sl->map->y = 0;
+		sl->map->x++;
+	}
+	return (0);
+}
+//to do : conditions open/close de l'exit // steps // count collectible collectes/totaux / fonction win
