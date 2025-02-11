@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int	ciao(t_solong *sl)
+void	ciao(t_solong *sl)
 {
 	if (sl->sprite->chacha)
 		mlx_destroy_image(sl->data->mlx, sl->sprite->chacha);
@@ -21,8 +21,6 @@ int	ciao(t_solong *sl)
 		mlx_destroy_display(sl->data->mlx);
 		free(sl->data->mlx);
 	}
-	free_exit(NULL, sl, 0);
-	return (0);
 }
 
 void	free_map(t_map *map)
@@ -53,14 +51,15 @@ void	free_sl(t_solong *sl)
 	    free(sl->count);
 	if (sl->data)
 	    free(sl->data);
-	if (sl->cpos)
-	    free(sl->cpos);
+	if (sl->pos)
+	    free(sl->pos);
 	if (sl->map)
 	    free(sl->map);
 	free(sl);
 }
 void	free_exit(char *str, t_solong *sl, int ret)
 {
+	ciao(sl);
 	if (sl)
 	{
 		free_map(sl->map);

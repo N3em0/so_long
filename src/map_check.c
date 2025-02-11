@@ -27,8 +27,8 @@ int	map_itemcheck(t_solong *sl)
 		{
 			if (sl->map->map[sl->map->x][sl->map->y] == 'P')
 			{
-				sl->cpos->cy = sl->map->y;
-				sl->cpos->cx = sl->map->x;
+				sl->pos->cy = sl->map->y;
+				sl->pos->cx = sl->map->x;
 				sl->count->chachac += 1;
 			}
 			if (sl->map->map[sl->map->x][sl->map->y] == 'C')
@@ -75,7 +75,7 @@ void	flood_fill(char **tab, int x, int y, int height, int width, t_map *map)
 
 int map_pathcheck(t_solong *sl)
 {
-	flood_fill(sl->map->mapcopy, sl->cpos->cx, sl->cpos->cy, sl->map->height, sl->map->width, sl->map);
+	flood_fill(sl->map->mapcopy, sl->pos->cx, sl->pos->cy, sl->map->height, sl->map->width, sl->map);
 	printf("%s\n", sl->map->mapcopy[0]);
 	printf("%s\n", sl->map->mapcopy[1]);
 	printf("%s\n", sl->map->mapcopy[2]);
