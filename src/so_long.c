@@ -1,65 +1,5 @@
 #include "so_long.h"
 
-int	key_hook(int keycode, t_solong *sl)
-{
-	if (keycode == 119)
-	{
-		if ((sl->cpos->cx > 0) && (sl->map->map[sl->cpos->cx - 1][sl->cpos->cy] != '1'))
-		{
-			sl->cpos->cx--;
-			printf("%d\n", sl->cpos->cx);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win,
-				sl->sprite->chacha, sl->cpos->cy * 120, sl->cpos->cx * 120);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
-				(sl->cpos->cy) * 120, (sl->cpos->cx + 1) * 120);
-		}
-		printf("pressed up\n");
-	}
-	if (keycode == 115)
-	{
-		if ((sl->cpos->cx < sl->map->height) && (sl->map->map[sl->cpos->cx + 1][sl->cpos->cy] != '1'))
-		{
-			sl->cpos->cx++;
-			printf("%d\n", sl->cpos->cx);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win,
-				sl->sprite->chacha, sl->cpos->cy * 120, sl->cpos->cx * 120);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
-				sl->cpos->cy * 120, (sl->cpos->cx - 1) * 120);
-		}
-		printf("pressed down\n");
-	}
-	if (keycode == 97) //left
-	{
-		if ((sl->cpos->cy > 0) && (sl->map->map[sl->cpos->cx][sl->cpos->cy - 1] != '1'))
-		{
-			sl->cpos->cy--;
-			printf("%d\n", sl->cpos->cy);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win,
-				sl->sprite->chacha, sl->cpos->cy * 120, sl->cpos->cx * 120);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
-				(sl->cpos->cy + 1) * 120, sl->cpos->cx * 120);
-		}
-		printf("pressed left\n");
-	}
-	if (keycode == 100) // right
-	{
-		if ((sl->cpos->cy < sl->map->width - 1) && (sl->map->map[sl->cpos->cx][sl->cpos->cy + 1] != '1'))
-		{
-			sl->cpos->cy++;
-			printf("%d\n", sl->cpos->cy);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win,
-				sl->sprite->chacha, sl->cpos->cy * 120, sl->cpos->cx * 120);
-			mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
-				(sl->cpos->cy - 1) * 120, sl->cpos->cx * 120);
-		}
-		printf("pressed right\n");
-	}
-	else if (keycode == 65307)
-		ciao(sl);
-	printf("keycode : %d\n", keycode);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_solong	*sl;
@@ -87,17 +27,21 @@ void	struct_initialisation(t_solong *sl)
 {
 	sl->map = ft_calloc(1, sizeof(t_map));
 	if (!sl->map)
-	free_exit("Failed struct init\n", sl, 1);
-	sl->cpos = ft_calloc(1, sizeof(t_cpos));
-	if (!sl->cpos)
-	free_exit("Failed struct init\n", sl, 1);
+		free_exit("Failed struct init\n", sl, 1);
+	sl->pos = ft_calloc(1, sizeof(t_pos));
+	if (!sl->pos)
+		free_exit("Failed struct init\n", sl, 1);
 	sl->data = ft_calloc(1, sizeof(t_data));
 	if (!sl->data)
-	free_exit("Failed struct init\n", sl, 1);
+		free_exit("Failed struct init\n", sl, 1);
 	sl->count = ft_calloc(1, sizeof(t_count));
 	if (!sl->count)
-	free_exit("Failed struct init\n", sl, 1);
+		free_exit("Failed struct init\n", sl, 1);
 	sl->sprite = ft_calloc(1, sizeof(t_sprite));
 	if (!sl->sprite)
-	free_exit("Failed struct init\n", sl, 1);
+		free_exit("Failed struct init\n", sl, 1);
 }
+//to do : 
+// affichage steps quand jeu fini + collecte/collectable ?
+// get ex/ey && cx/cy a mettre dans la meme fonction ?
+// faire une fonction pour copier la map dans une deuxieme copie (+ trouver un nom)

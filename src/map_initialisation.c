@@ -39,8 +39,6 @@ int	map_getsize(char **argv, t_solong *sl)
 		sl->map->height++;
 		free(str);
 	}
-	printf("height %d\n", sl->map->height);
-	printf("width %d\n", sl->map->width);
 	close(fd);
 	return (0);
 }
@@ -75,6 +73,11 @@ int	map_copy(char **argv, t_solong *sl)
 	{
 		while (str[sl->map->y] != '\0' && str[sl->map->y] != '\n')
 		{
+			if (str[sl->map->y] == 'E')
+			{
+				sl->pos->ex = sl->map->x;
+				sl->pos->ey = sl->map->y;
+			}
 			sl->map->map[sl->map->x][sl->map->y] = str[sl->map->y];
             sl->map->mapcopy[sl->map->x][sl->map->y] = sl->map->map[sl->map->x][sl->map->y];
 			sl->map->y++;
@@ -88,7 +91,5 @@ int	map_copy(char **argv, t_solong *sl)
 		sl->map->x++;
 	}
 	close(fd);
-	sl->map->x = 0;
-	sl->map->y = 0;
-	return (0);
+	return (sl->map->x = 0, sl->map->y = 0, 0);
 }

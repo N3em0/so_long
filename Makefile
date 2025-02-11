@@ -6,7 +6,7 @@
 #    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/02/10 20:38:03 by teatime          ###   ########.fr        #
+#    Updated: 2025/02/11 21:50:51 by teatime          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ map_check.c					\
 display_image.c				\
 free_exit.c					\
 map_initialisation.c		\
+movement.c					\
+win_condition.c
 
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 

@@ -41,7 +41,7 @@ void	map_put_image(t_solong *sl)
 	}
 	if (sl->map->map[sl->map->x][sl->map->y] == 'E')
 	{
-		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->oexit,
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->cexit,
 			sl->map->y * 120, sl->map->x * 120);
 	}
 	if (sl->map->map[sl->map->x][sl->map->y] == 'P')
@@ -65,4 +65,17 @@ int	map_put_all_image(t_solong *sl)
 	}
 	return (0);
 }
-//to do : conditions open/close de l'exit // steps // count collectible collectes/totaux / fonction win
+
+void	replace_image(t_solong *sl, int newy, int newx, int oldy, int oldx)
+{
+	mlx_put_image_to_window(sl->data->mlx, sl->data->win,
+		sl->sprite->chacha, newy * 120, newx * 120);
+	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
+		oldy * 120, oldx * 120); 
+}
+
+void	replace_exit(t_solong *sl)
+{
+	mlx_put_image_to_window(sl->data->mlx, sl->data->win,
+		sl->sprite->oexit, sl->pos->ey * 120, sl->pos->ex * 120);
+}
