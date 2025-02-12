@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/02/11 23:07:55 by teatime          ###   ########.fr       */
+/*   Updated: 2025/02/12 20:51:46 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_map
 	int			width;
 	int			height;
 	char		**map;
-	char 		**mapcopy;
+	char		**mapcopy;
 }				t_map;
 
 typedef struct s_sprite
@@ -70,11 +70,11 @@ typedef struct s_solong
 	t_sprite	*sprite;
 	t_count		*count;
 	t_pos		*pos;
-
 }				t_solong;
 
 int				main(int argc, char **argv);
 void			struct_initialisation(t_solong *sl);
+void			win_initialisation(t_solong *sl);
 
 void			map_initialisation(char **argv, t_solong *sl);
 int				map_getsize(char **argv, t_solong *sl);
@@ -83,23 +83,28 @@ int				map_copy(char **argv, t_solong *sl);
 
 int				map_wallcheck(t_map *map);
 int				map_itemcheck(t_solong *sl);
-int 			map_charcheck(t_map *map);
-void			flood_fill(char **tab, int x, int y, int height, int width, t_map *map);
-int 			map_pathcheck(t_solong *sl);
+int				map_charcheck(t_map *map);
+void			flood_fill(char **tab, int x, int y, int height, int width,
+					t_map *map);
+int				map_pathcheck(t_solong *sl);
 
-int				map_loadimage(t_solong *sl);
-void			map_put_image(t_solong *sl);
-int				map_put_all_image(t_solong *sl);
-void			replace_image(t_solong *sl, int newy, int newx, int oldy, int oldx);
+int				load_image(t_solong *sl);
+void			put_image(t_solong *sl);
+void			put_all_image(t_solong *sl);
+void			replace_image(t_solong *sl, int newy, int newx, int oldy,
+					int oldx);
 void			replace_exit(t_solong *sl);
 
 int				key_hook(int keycode, t_solong *sl);
-void			move_up(t_solong *sl);
-void   			move_left(t_solong *sl);
-void   			move_right(t_solong *sl);
-void    		move_down(t_solong *sl);
+void			move_up(t_solong *sl, t_map *map, t_pos *pos);
+void			move_left(t_solong *sl, t_map *map, t_pos *pos);
+void			move_right(t_solong *sl, t_map *map, t_pos *pos);
+void			move_down(t_solong *sl, t_map *map, t_pos *pos);
 
-void    		collect_loot(t_solong *sl);
+void			collect_loot(t_solong *sl);
+void			display_loot(t_solong *sl);
+void			display_steps(t_solong *sl);
+void			display_hud(t_solong *sl);
 
 void			ciao(t_solong *sl);
 void			free_sl(t_solong *sl);

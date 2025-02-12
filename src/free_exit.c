@@ -26,35 +26,35 @@ void	ciao(t_solong *sl)
 void	free_map(t_map *map)
 {
 	int	i;
-	
+
 	i = 0;
 	if (map && map->map)
 	{
-        while (i < map->height)
-		    free(map->map[i++]);
-        free(map->map);
+		while (i < map->height)
+			free(map->map[i++]);
+		free(map->map);
 	}
-    i = 0;
-    if (map && map->mapcopy)
-    {
-        while (i < map->height)
-            free(map->mapcopy[i++]);
-        free(map->mapcopy);
-    }
+	i = 0;
+	if (map && map->mapcopy)
+	{
+		while (i < map->height)
+			free(map->mapcopy[i++]);
+		free(map->mapcopy);
+	}
 }
 
 void	free_sl(t_solong *sl)
 {
 	if (sl->sprite)
-	    free(sl->sprite);
+		free(sl->sprite);
 	if (sl->count)
-	    free(sl->count);
+		free(sl->count);
 	if (sl->data)
-	    free(sl->data);
+		free(sl->data);
 	if (sl->pos)
-	    free(sl->pos);
+		free(sl->pos);
 	if (sl->map)
-	    free(sl->map);
+		free(sl->map);
 	free(sl);
 }
 void	free_exit(char *str, t_solong *sl, int ret)
@@ -66,6 +66,6 @@ void	free_exit(char *str, t_solong *sl, int ret)
 		free_sl(sl);
 	}
 	if (str != NULL)
-	    ft_putstr_fd(str, 2);
+		ft_putstr_fd(str, 2);
 	exit(ret);
 }

@@ -3,73 +3,77 @@
 int	key_hook(int keycode, t_solong *sl)
 {
 	if (keycode == 119)
-    {
-        move_up(sl);
-        collect_loot(sl); 
-    }
+	{
+		move_up(sl, sl->map, sl->pos);
+		collect_loot(sl);
+	}
 	if (keycode == 115)
 	{
-        move_down(sl);
-        collect_loot(sl);
+		move_down(sl, sl->map, sl->pos);
+		collect_loot(sl);
 	}
-	if (keycode == 97) //left
+	if (keycode == 97)
 	{
-        move_left(sl);
-        collect_loot(sl);
+		move_left(sl, sl->map, sl->pos);
+		collect_loot(sl);
 	}
-	if (keycode == 100) // right
+	if (keycode == 100)
 	{
-        move_right(sl);
-        collect_loot(sl);
-    }
-    else if (keycode == 65307)
-        free_exit("window closed", sl, 1);
-    return (0);
-}
-    
-void    move_up(t_solong *sl)
-{
-    if (sl->pos->cx > 0 && sl->map->map[sl->pos->cx - 1][sl->pos->cy] != '1' && sl->map->map[sl->pos->cx - 1][sl->pos->cy] != 'E')
-    {
-        sl->pos->cx--;
-        printf("%d steps\n", sl->count->stepc++);
-        replace_image(sl, sl->pos->cy, sl->pos->cx, sl->pos->cy, sl->pos->cx + 1);
-        if (sl->map->map[sl->pos->cx - 1][sl->pos->cy] == 'O')
-            free_exit("Tia gagne fratelo", sl, 0);  
-    }
-}
-void    move_down(t_solong *sl)
-{
-    if (sl->pos->cx < sl->map->height && sl->map->map[sl->pos->cx + 1][sl->pos->cy] != '1' && sl->map->map[sl->pos->cx + 1][sl->pos->cy] != 'E')
-    {
-        sl->pos->cx++;
-        printf("%d steps\n", sl->count->stepc++);
-        replace_image(sl, sl->pos->cy, sl->pos->cx, sl->pos->cy, sl->pos->cx - 1);
-        if (sl->map->map[sl->pos->cx + 1][sl->pos->cy] == 'O')
-            free_exit("Tia gagne fratelo\n", sl, 0);
-    }
+		move_right(sl, sl->map, sl->pos);
+		collect_loot(sl);
+	}
+	else if (keycode == 65307)
+		free_exit("window closed", sl, 1);
+	return (0);
 }
 
-void    move_left(t_solong *sl)
+void	move_up(t_solong *sl, t_map *map, t_pos *pos)
 {
-    if (sl->pos->cy > 0 && sl->map->map[sl->pos->cx][sl->pos->cy - 1] != '1' && sl->map->map[sl->pos->cx][sl->pos->cy - 1] != 'E')
-    {
-        sl->pos->cy--;
-        printf("%d steps\n", sl->count->stepc++);
-        replace_image(sl, sl->pos->cy, sl->pos->cx, sl->pos->cy + 1, sl->pos->cx);
-        if (sl->map->map[sl->pos->cx][sl->pos->cy] == 'O')
-            free_exit("Tia gagne fratelo\n", sl, 0);
-    }
+	if (pos->cx > 0 && map->map[pos->cx - 1][pos->cy] != '1')
+	{
+		pos->cx--;
+		sl->count->stepc++;
+		display_hud(sl);
+		replace_image(sl, pos->cy, pos->cx, pos->cy, pos->cx + 1);
+		if (map->map[pos->cx][pos->cy] == 'O')
+			free_exit("Tia gagne fratelo", sl, 0);
+	}
+}
+void	move_down(t_solong *sl, t_map *map, t_pos *pos)
+{
+	if (pos->cx < map->height && map->map[pos->cx + 1][pos->cy] != '1')
+	{
+		pos->cx++;
+		sl->count->stepc++;
+		display_hud(sl);
+		replace_image(sl, pos->cy, pos->cx, pos->cy, pos->cx - 1);
+		if (map->map[pos->cx][pos->cy] == 'O')
+			free_exit("Tia gagne fratelo\n", sl, 0);
+	}
 }
 
-void    move_right(t_solong *sl)
+void	move_left(t_solong *sl, t_map *map, t_pos *pos)
 {
-    if (sl->pos->cy < sl->map->width - 1 && sl->map->map[sl->pos->cx][sl->pos->cy + 1] != '1' && sl->map->map[sl->pos->cx][sl->pos->cy + 1] != 'E')
-    {
-        sl->pos->cy++;
-        printf("%d steps\n", sl->count->stepc++);
-        replace_image(sl, sl->pos->cy, sl->pos->cx, sl->pos->cy - 1, sl->pos->cx);
-        if (sl->map->map[sl->pos->cx][sl->pos->cy + 1] == 'O')
-            free_exit("Tia gagne fratelo\n", sl, 0);
-    }
+	if (pos->cy > 0 && map->map[pos->cx][pos->cy - 1] != '1')
+	{
+		pos->cy--;
+		sl->count->stepc++;
+		display_hud(sl);
+		replace_image(sl, pos->cy, pos->cx, pos->cy + 1, pos->cx);
+		if (map->map[pos->cx][pos->cy] == 'O')
+			free_exit("Tia gagne fratelo\n", sl, 0);
+	}
+}
+
+void	move_right(t_solong *sl, t_map *map, t_pos *pos)
+{
+	if (pos->cy < map->width - 1 && map->map[pos->cx][pos->cy + 1] != '1')
+	{
+		pos->cy++;
+		sl->count->stepc++;
+		display_hud(sl);
+		replace_image(sl, pos->cy, pos->cx, pos->cy - 1, pos->cx);
+		if (map->map[pos->cx][pos->cy] == 'O')
+			free_exit("Tia gagne fratelo\n", sl, 0);
+	}
 }
