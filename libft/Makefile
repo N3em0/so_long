@@ -3,92 +3,104 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
+#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 17:59:37 by teatime           #+#    #+#              #
-#    Updated: 2025/02/03 16:04:53 by teatime          ###   ########.fr        #
+#    Updated: 2025/02/13 21:30:24 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HEAD	=	libft.h
+HEAD	    :=	include/libft.h
 
-NAME    =	libft.a
+NAME        :=	libft.a
 
-SRC     =    ft_atoi.c      \
-            ft_bzero.c      \
-            ft_calloc.c     \
-            ft_isalnum.c    \
-            ft_isalpha.c    \
-            ft_isascii.c    \
-            ft_isdigit.c    \
-            ft_isprint.c    \
-            ft_itoa.c       \
-            ft_memchr.c     \
-            ft_memcmp.c     \
-            ft_memcpy.c     \
-            ft_memmove.c    \
-            ft_memset.c     \
-            ft_putchar_fd.c \
-            ft_putendl_fd.c \
-            ft_putnbr_fd.c  \
-            ft_putstr_fd.c  \
-            ft_split.c      \
-            ft_strchr.c     \
-            ft_strdup.c     \
-            ft_striteri.c   \
-            ft_strjoin.c    \
-            ft_strlcat.c    \
-            ft_strlcpy.c    \
-            ft_strlen.c     \
-            ft_strmapi.c    \
-            ft_strncmp.c    \
-            ft_strnstr.c    \
-            ft_strrchr.c    \
-            ft_strtrim.c    \
-            ft_substr.c     \
-            ft_tolower.c    \
-            ft_toupper.c
+SRC_DIR     :=  src
+SRC         :=  ft_atoi.c               \
+                ft_bzero.c              \
+                ft_calloc.c             \
+                ft_isalnum.c            \
+                ft_isalpha.c            \
+                ft_isascii.c            \
+                ft_isdigit.c            \
+                ft_isprint.c            \
+                ft_itoa.c               \
+                ft_memchr.c             \
+                ft_memcmp.c             \
+                ft_memcpy.c             \
+                ft_memmove.c            \
+                ft_memset.c             \
+                ft_putchar_fd.c         \
+                ft_putendl_fd.c         \
+                ft_putnbr_fd.c          \
+                ft_putstr_fd.c          \
+                ft_split.c              \
+                ft_strchr.c             \
+                ft_strdup.c             \
+                ft_striteri.c           \
+                ft_strjoin.c            \
+                ft_strlcat.c            \
+                ft_strlcpy.c            \
+                ft_strlen.c             \
+                ft_strmapi.c            \
+                ft_strncmp.c            \
+                ft_strnstr.c            \
+                ft_strrchr.c            \
+                ft_strtrim.c            \
+                ft_substr.c             \
+                ft_tolower.c            \
+                ft_toupper.c            \
+                ft_lstadd_back.c        \
+                ft_lstadd_front.c       \
+                ft_lstclear.c           \
+                ft_lstdelone.c          \
+                ft_lstiter.c            \
+                ft_lstlast.c            \
+                ft_lstmap.c             \
+                ft_lstnew.c             \
+                ft_lstsize.c            \
 
-BNS     =   ft_lstadd_back.c     \
-            ft_lstadd_front.c    \
-            ft_lstclear.c        \
-            ft_lstdelone.c       \
-            ft_lstiter.c         \
-            ft_lstlast.c         \
-            ft_lstmap.c          \
-            ft_lstnew.c          \
-            ft_lstsize.c
+SRC         := $(SRC:$(SRC_DIR)/%=$(SRC_DIR)/%)
 
-OBJ	    =	$(SRC:%.c=%.o)
+BUILD_DIR   :=  .build
+OBJ	        :=	$(SRC:%.c=$(BUILD_DIR)/%.o)
 
-B_OBJ	=	$(BNS:%.c=%.o)
+AR	        :=	ar -rcs
 
+CC	        :=	cc
+FLAGS	    :=	-Wall -Wextra -Werror
 
-CC	    =	cc
+MAKEFLAGS   :=  --no-print-directory
 
-AR	    =	ar -rc
+INCLUDE			:=	-MMD -MP -Iinclude
 
-FLAGS	=	-Wall -Wextra -Werror
+DIR_DUP			=	mkdir -p $(@D)
 
-all	:	$(NAME)
+RM				:=	rm -f
+RMF				:=	rm -rf
 
-$(OBJ) : %.o: %.c $(HEAD) Makefile
-	$(CC) $(FLAGS) -c $< -o $@
+all             :	$(NAME)
 
-$(NAME)	: $(OBJ)
-	$(AR) $(NAME) $(OBJ)
+$(NAME)			:	$(OBJ)
+			$(AR) $(NAME) $(OBJ)
+			$(info CREATED $(NAME))
 
-bonus	:
-	make SRC="$(SRC) $(BNS)"
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+			$(DIR_DUP)
+			$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
+			$(info CREATED $@)
 
-clean	:
-	rm -rf $(OBJ) $(B_OBJ)
+-include $(DEP)
 
-fclean	:	clean
-	rm -f $(NAME) $(B_OBJ)
+clean 			:
+			$(RMF) $(BUILD_DIR)
 
-re	:	fclean all
+fclean			:	clean
+			$(RM) $(NAME)
 
-.PHONY	:	all clean fclean re bonus
+re				:
+			$(MAKE) fclean
+			$(MAKE) all
 
-.SILENT :
+.PHONY			:	all clean fclean re
+
+.SILENT			:

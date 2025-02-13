@@ -7,16 +7,15 @@ int	map_getsize(char **argv, t_solong *sl)
 	int		len;
 
 	fd = open(argv[1], O_RDONLY);
-	// if (fd <= 0)
-	// 	free_exit("Error\nWrong fd", sl, 2);
 	while ((str = get_next_line(fd)))
 	{
 		len = ft_strlen(str) - 1;
 		if (sl->map->width == 0)
 			sl->map->width = len;
-		if (sl->map->width < len || sl->map->width > len || sl->map->height >= 17 || sl->map->width > 32)
+		if (sl->map->width < len || sl->map->width > len
+			|| sl->map->height >= 17 || sl->map->width > 32)
 		{
-			return (free(str), 1);
+			return (close(fd), free(str), 1);
 		}
 		sl->map->height++;
 		free(str);
@@ -51,17 +50,14 @@ int	map_copy(char **argv, t_solong *sl)
 	char	*str;
 
 	fd = open(argv[1], O_RDONLY);
-	// if (fd <= 0)
-	// 	return (1);
 	while ((str = get_next_line(fd)))
 	{
 		while (str[sl->map->y] != '\0' && str[sl->map->y] != '\n')
 		{
 			if (str[sl->map->y] == 'E')
-			{
-				sl->pos->ex = sl->map->x;
-				sl->pos->ey = sl->map->y;
-			}
+				map_get_exitpos(sl, sl->map->x, sl->map->y);
+			if (str[sl->map->y] == 'P')
+				map_get_playerpos(sl, sl->map->x, sl->map->y);
 			sl->map->map[sl->map->x][sl->map->y] = str[sl->map->y];
 			sl->map->mapcopy[sl->map->x][sl->map->y] = sl->map->map[sl->map->x][sl->map->y];
 			sl->map->y++;
@@ -74,4 +70,15 @@ int	map_copy(char **argv, t_solong *sl)
 	}
 	close(fd);
 	return (sl->map->x = 0, sl->map->y = 0, 0);
+}
+
+void	map_get_exitpos(t_solong *sl, int x, int y)
+{
+	sl->pos->ex = x;
+	sl->pos->ey = y;
+}
+void	map_get_playerpos(t_solong *sl, int x, int y)
+{
+	sl->pos->px = x;
+	sl->pos->py = y;
 }

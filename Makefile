@@ -6,7 +6,7 @@
 #    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/02/12 12:52:02 by egache           ###   ########.fr        #
+#    Updated: 2025/02/13 21:32:57 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,19 +20,20 @@ HEAD		:=				\
 include						\
 mlx_linux					\
 get_next_line/include		\
-libft						\
+libft/include				\
 
 NAME	:=	so_long
 
 SRC_DIR	:=	src
 SRC		:=					\
 so_long.c 					\
+map_initialisation.c		\
 map_check.c					\
 display_image.c				\
-free_exit.c					\
-map_initialisation.c		\
 movement.c					\
-win_condition.c
+win_condition.c				\
+hud.c						\
+free_exit.c					\
 
 SRC		:=	$(SRC:%=$(SRC_DIR)/%)
 
@@ -40,13 +41,14 @@ BUILD_DIR:=	.build
 OBJ		:=	$(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEP		:=	$(OBJ:%.o=.d)
 
+AR	:=	ar -rcs
+
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror -g3
 INCLUDE	:=	$(addprefix -I,$(HEAD)) -MMD -MP
 LIBDIR	:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
 LIBNAME	:=	$(addprefix -l,$(LIBS))
 
-AR	:=	ar -rcs
 
 MAKEFLAGS	+=	--silent --no-print-directory
 
@@ -59,7 +61,7 @@ all	:	$(NAME)
 
 $(NAME)	:	$(OBJ) $(LIBS_TARGET)
 			$(CC) $(LIBDIR) $(OBJ) $(LIBNAME) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-			$(info CREATED CACA $(NAME))
+			$(info CREATED $(NAME))
 
 $(LIBS_TARGET)	:
 			@$(MAKE) -C $(@D)
@@ -67,7 +69,7 @@ $(LIBS_TARGET)	:
 $(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(DIR_DUP)
 			$(CC) $(CFLAGS) $(info INCLUDE paths: $(INCLUDE)) $(INCLUDE) -O3 -c -o $@ $<
-			$(info CREATED PIPI $@)
+			$(info CREATED $@)
 
 -include $(DEP)
 

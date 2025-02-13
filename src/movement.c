@@ -23,57 +23,57 @@ int	key_hook(int keycode, t_solong *sl)
 		collect_loot(sl);
 	}
 	else if (keycode == 65307)
-		free_exit("window closed", sl, 1);
+		free_exit(sl, "Window closed by escape\n", EXIT_SUCCESS);
 	return (0);
 }
 
 void	move_up(t_solong *sl, t_map *map, t_pos *pos)
 {
-	if (pos->cx > 0 && map->map[pos->cx - 1][pos->cy] != '1')
+	if (pos->px > 0 && map->map[pos->px - 1][pos->py] != '1')
 	{
-		pos->cx--;
+		pos->px--;
 		sl->count->stepc++;
 		display_hud(sl);
-		replace_image(sl, pos->cy, pos->cx, pos->cy, pos->cx + 1);
-		if (map->map[pos->cx][pos->cy] == 'O')
-			free_exit("Tia gagne fratelo", sl, 0);
+		replace_image(sl, pos->py, pos->px, pos->py, pos->px + 1);
+		if (map->map[pos->px][pos->py] == 'O')
+			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
 	}
 }
 void	move_down(t_solong *sl, t_map *map, t_pos *pos)
 {
-	if (pos->cx < map->height && map->map[pos->cx + 1][pos->cy] != '1')
+	if (pos->px < map->height && map->map[pos->px + 1][pos->py] != '1')
 	{
-		pos->cx++;
+		pos->px++;
 		sl->count->stepc++;
 		display_hud(sl);
-		replace_image(sl, pos->cy, pos->cx, pos->cy, pos->cx - 1);
-		if (map->map[pos->cx][pos->cy] == 'O')
-			free_exit("Tia gagne fratelo\n", sl, 0);
+		replace_image(sl, pos->py, pos->px, pos->py, pos->px - 1);
+		if (map->map[pos->px][pos->py] == 'O')
+			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
 	}
 }
 
 void	move_left(t_solong *sl, t_map *map, t_pos *pos)
 {
-	if (pos->cy > 0 && map->map[pos->cx][pos->cy - 1] != '1')
+	if (pos->py > 0 && map->map[pos->px][pos->py - 1] != '1')
 	{
-		pos->cy--;
+		pos->py--;
 		sl->count->stepc++;
 		display_hud(sl);
-		replace_image(sl, pos->cy, pos->cx, pos->cy + 1, pos->cx);
-		if (map->map[pos->cx][pos->cy] == 'O')
-			free_exit("Tia gagne fratelo\n", sl, 0);
+		replace_image(sl, pos->py, pos->px, pos->py + 1, pos->px);
+		if (map->map[pos->px][pos->py] == 'O')
+			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
 	}
 }
 
 void	move_right(t_solong *sl, t_map *map, t_pos *pos)
 {
-	if (pos->cy < map->width - 1 && map->map[pos->cx][pos->cy + 1] != '1')
+	if (pos->py < map->width - 1 && map->map[pos->px][pos->py + 1] != '1')
 	{
-		pos->cy++;
+		pos->py++;
 		sl->count->stepc++;
 		display_hud(sl);
-		replace_image(sl, pos->cy, pos->cx, pos->cy - 1, pos->cx);
-		if (map->map[pos->cx][pos->cy] == 'O')
-			free_exit("Tia gagne fratelo\n", sl, 0);
+		replace_image(sl, pos->py, pos->px, pos->py - 1, pos->px);
+		if (map->map[pos->px][pos->py] == 'O')
+			free_exit(sl, "Tia gagne fratelo", EXIT_SUCCESS);
 	}
 }

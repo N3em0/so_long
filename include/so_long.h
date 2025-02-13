@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/02/12 20:51:46 by egache           ###   ########.fr       */
+/*   Updated: 2025/02/13 20:58:54 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_map
 
 typedef struct s_sprite
 {
-	void		*chacha;
+	void		*player;
 	void		*wall;
 	void		*empty;
 	void		*loot;
@@ -48,7 +48,7 @@ typedef struct s_sprite
 
 typedef struct s_count
 {
-	int			chachac;
+	int			playerc;
 	int			lootc;
 	int			lootedc;
 	int			exitc;
@@ -57,8 +57,8 @@ typedef struct s_count
 
 typedef struct s_pos
 {
-	int			cx;
-	int			cy;
+	int			px;
+	int			py;
 	int			ex;
 	int			ey;
 }				t_pos;
@@ -73,11 +73,14 @@ typedef struct s_solong
 }				t_solong;
 
 int				main(int argc, char **argv);
+void			valid_argument(int argc, char **argv, t_solong *sl);
 void			struct_initialisation(t_solong *sl);
 void			win_initialisation(t_solong *sl);
 
 void			map_initialisation(char **argv, t_solong *sl);
 int				map_getsize(char **argv, t_solong *sl);
+void			map_get_playerpos(t_solong *sl, int x, int y);
+void			map_get_exitpos(t_solong *sl, int x, int y);
 int				map_alloc(t_solong *sl);
 int				map_copy(char **argv, t_solong *sl);
 
@@ -106,8 +109,9 @@ void			display_loot(t_solong *sl);
 void			display_steps(t_solong *sl);
 void			display_hud(t_solong *sl);
 
-void			ciao(t_solong *sl);
+void			free_mlx(t_solong *sl);
+int				free_destroy(t_solong *sl);
 void			free_sl(t_solong *sl);
 void			free_map(t_map *map);
-void			free_exit(char *str, t_solong *sl, int ret);
+void			free_exit(t_solong *sl, char *str, int ret);
 #endif

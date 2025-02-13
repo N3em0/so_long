@@ -5,11 +5,11 @@ int	load_image(t_solong *sl)
 	int	img_width;
 	int	img_height;
 
-	sl->sprite->chacha = mlx_xpm_file_to_image(sl->data->mlx, "img/char.xpm",
+	sl->sprite->player = mlx_xpm_file_to_image(sl->data->mlx, "img/char.xpm",
 			&img_width, &img_height);
 	sl->sprite->wall = mlx_xpm_file_to_image(sl->data->mlx, "img/wall.xpm",
 			&img_width, &img_height);
-	sl->sprite->empty = mlx_xpm_file_to_image(sl->data->mlx, "img/empty.xpm",
+	sl->sprite->empty = mlx_xpm_file_to_image(sl->data->mlx, "img/cat.png",
 			&img_width, &img_height);
 	sl->sprite->loot = mlx_xpm_file_to_image(sl->data->mlx, "img/c.xpm",
 			&img_width, &img_height);
@@ -17,7 +17,7 @@ int	load_image(t_solong *sl)
 			&img_width, &img_height);
 	sl->sprite->oexit = mlx_xpm_file_to_image(sl->data->mlx, "img/oexit.xpm",
 			&img_width, &img_height);
-	if (!sl->sprite->chacha || !sl->sprite->wall || !sl->sprite->loot
+	if (!sl->sprite->player || !sl->sprite->wall || !sl->sprite->loot
 		|| !sl->sprite->cexit || !sl->sprite->oexit || !sl->sprite->empty)
 		return (1);
 	return (0);
@@ -48,7 +48,7 @@ void	put_image(t_solong *sl)
 	if (sl->map->map[sl->map->x][sl->map->y] == 'P')
 	{
 		mlx_put_image_to_window(sl->data->mlx, sl->data->win,
-			sl->sprite->chacha, sl->map->y * 120, sl->map->x * 120);
+			sl->sprite->player, sl->map->y * 120, sl->map->x * 120);
 	}
 }
 
@@ -68,7 +68,7 @@ void	put_all_image(t_solong *sl)
 
 void	replace_image(t_solong *sl, int newy, int newx, int oldy, int oldx)
 {
-	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->chacha,
+	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->player,
 		newy * 120, newx * 120);
 	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
 		oldy * 120, oldx * 120);
