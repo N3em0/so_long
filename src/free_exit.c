@@ -1,9 +1,9 @@
 #include "so_long.h"
 
-void	ciao(t_solong *sl)
+void	free_mlx(t_solong *sl)
 {
-	if (sl->sprite->chacha)
-		mlx_destroy_image(sl->data->mlx, sl->sprite->chacha);
+	if (sl->sprite->player)
+		mlx_destroy_image(sl->data->mlx, sl->sprite->player);
 	if (sl->sprite->wall)
 		mlx_destroy_image(sl->data->mlx, sl->sprite->wall);
 	if (sl->sprite->empty)
@@ -57,11 +57,16 @@ void	free_sl(t_solong *sl)
 		free(sl->map);
 	free(sl);
 }
-void	free_exit(char *str, t_solong *sl, int ret)
+int	free_destroy(t_solong *sl)
 {
-	ciao(sl);
+	free_exit(sl, "Window close by X\n", EXIT_SUCCESS);
+	return (0);
+}
+void	free_exit(t_solong *sl, char *str, int ret)
+{
 	if (sl)
 	{
+		free_mlx(sl);
 		free_map(sl->map);
 		free_sl(sl);
 	}
