@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/02/13 20:58:54 by egache           ###   ########.fr       */
+/*   Updated: 2025/02/14 19:39:05 by teatime          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "get_next_line.h"
 # include "libft.h"
 # include "mlx.h"
+# include "../ft_printf/include/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -63,6 +64,16 @@ typedef struct s_pos
 	int			ey;
 }				t_pos;
 
+typedef struct s_hud
+{
+	char *lootedtmp;
+	char *loottmp;
+	char *lootcount;
+	char *hudloot;
+	char *stepcount;
+	char *hudstep;
+}				t_hud;
+
 typedef struct s_solong
 {
 	t_map		*map;
@@ -70,6 +81,7 @@ typedef struct s_solong
 	t_sprite	*sprite;
 	t_count		*count;
 	t_pos		*pos;
+	t_hud		*hud;
 }				t_solong;
 
 int				main(int argc, char **argv);
@@ -105,13 +117,14 @@ void			move_right(t_solong *sl, t_map *map, t_pos *pos);
 void			move_down(t_solong *sl, t_map *map, t_pos *pos);
 
 void			collect_loot(t_solong *sl);
-void			display_loot(t_solong *sl);
-void			display_steps(t_solong *sl);
+int				display_loot(t_solong *sl);
+int				display_steps(t_solong *sl);
 void			display_hud(t_solong *sl);
 
 void			free_mlx(t_solong *sl);
 int				free_destroy(t_solong *sl);
 void			free_sl(t_solong *sl);
 void			free_map(t_map *map);
+void			free_hud(t_hud *hud);
 void			free_exit(t_solong *sl, char *str, int ret);
 #endif

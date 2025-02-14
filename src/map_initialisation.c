@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_initialisation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 17:33:43 by teatime           #+#    #+#             */
+/*   Updated: 2025/02/14 18:50:48 by teatime          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	map_getsize(char **argv, t_solong *sl)
@@ -15,7 +27,9 @@ int	map_getsize(char **argv, t_solong *sl)
 		if (sl->map->width < len || sl->map->width > len
 			|| sl->map->height >= 17 || sl->map->width > 32)
 		{
-			return (close(fd), free(str), 1);
+			close (fd);
+			free(str);
+			return (1);
 		}
 		sl->map->height++;
 		free(str);
@@ -63,13 +77,14 @@ int	map_copy(char **argv, t_solong *sl)
 			sl->map->y++;
 		}
 		sl->map->map[sl->map->x][sl->map->y] = '\0';
-		sl->map->mapcopy[sl->map->x][sl->map->y] = '\0';
+		sl->map->mapcopy[sl->map->x++][sl->map->y] = '\0';
 		free(str);
 		sl->map->y = 0;
-		sl->map->x++;
 	}
 	close(fd);
-	return (sl->map->x = 0, sl->map->y = 0, 0);
+	sl->map->x = 0;
+	sl->map->y = 0;
+	return (0);
 }
 
 void	map_get_exitpos(t_solong *sl, int x, int y)
