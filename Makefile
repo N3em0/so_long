@@ -3,24 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/02/13 21:32:57 by egache           ###   ########.fr        #
+#    Updated: 2025/02/14 17:39:42 by teatime          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBS		:=	mlx gnl ft m
+LIBS		:=	mlx gnl ft printf m
 LIBS_TARGET	:=				\
 	mlx_linux/libmlx.a		\
 	get_next_line/libgnl.a	\
 	libft/libft.a			\
+	ft_printf/libprintf.a	\
 
 HEAD		:=				\
 include						\
 mlx_linux					\
 get_next_line/include		\
 libft/include				\
+ft_printf/include			\
 
 NAME	:=	so_long
 
@@ -48,7 +50,6 @@ CFLAGS	:=	-Wall -Wextra -Werror -g3
 INCLUDE	:=	$(addprefix -I,$(HEAD)) -MMD -MP
 LIBDIR	:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
 LIBNAME	:=	$(addprefix -l,$(LIBS))
-
 
 MAKEFLAGS	+=	--silent --no-print-directory
 
@@ -78,12 +79,14 @@ clean:
 			$(RMF) $(BUILD_DIR)
 			$(MAKE) clean -C get_next_line
 			$(MAKE) clean -C libft
+			$(MAKE) clean -C ft_printf
 			$(MAKE) clean -s -C mlx_linux
 
 fclean:	clean
 			$(RM) $(NAME)
 			$(MAKE) fclean -C get_next_line
 			$(MAKE) fclean -C libft
+			$(MAKE) fclean -C ft_printf
 			$(MAKE) clean -s -C mlx_linux
 			$(info CLEANED $(NAME))
 

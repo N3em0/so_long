@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 17:33:48 by teatime           #+#    #+#             */
+/*   Updated: 2025/02/14 19:48:55 by teatime          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	key_hook(int keycode, t_solong *sl)
@@ -33,10 +45,13 @@ void	move_up(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->px--;
 		sl->count->stepc++;
-		display_hud(sl);
 		replace_image(sl, pos->py, pos->px, pos->py, pos->px + 1);
+		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
+		{
+			ft_printf("You won in %d steps\n", sl->count->stepc);
 			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
+		}
 	}
 }
 void	move_down(t_solong *sl, t_map *map, t_pos *pos)
@@ -45,10 +60,13 @@ void	move_down(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->px++;
 		sl->count->stepc++;
-		display_hud(sl);
 		replace_image(sl, pos->py, pos->px, pos->py, pos->px - 1);
+		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
+		{
+			ft_printf("You won in %d steps\n", sl->count->stepc);
 			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
+		}
 	}
 }
 
@@ -58,10 +76,13 @@ void	move_left(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->py--;
 		sl->count->stepc++;
-		display_hud(sl);
 		replace_image(sl, pos->py, pos->px, pos->py + 1, pos->px);
+		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
+		{
+			ft_printf("You won in %d steps\n", sl->count->stepc);
 			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
+		}
 	}
 }
 
@@ -71,9 +92,12 @@ void	move_right(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->py++;
 		sl->count->stepc++;
-		display_hud(sl);
 		replace_image(sl, pos->py, pos->px, pos->py - 1, pos->px);
+		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
+		{
+			ft_printf("You won in %d steps\n", sl->count->stepc);
 			free_exit(sl, "Tia gagne fratelo", EXIT_SUCCESS);
+		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:55:46 by egache            #+#    #+#             */
-/*   Updated: 2024/12/12 15:03:43 by egache           ###   ########.fr       */
+/*   Updated: 2025/02/14 18:58:07 by teatime          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,14 @@ char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*join;
 	int		lentotal;
-
-	lentotal = ft_strlentotal((char *)s1, (char *)s2);
-	join = ft_calloc(1, lentotal);
-	if (!join)
+	if (s1 && s2)
+	{
+		lentotal = ft_strlentotal((char *)s1, (char *)s2);
+		join = ft_calloc(1, lentotal);
+		if (!join)
+			return (NULL);
+	}
+	else
 		return (NULL);
 	ft_strcat(join, (char *)s1);
 	ft_strcat(join, (char *)s2);

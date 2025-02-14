@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_image.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 17:33:25 by teatime           #+#    #+#             */
+/*   Updated: 2025/02/14 17:43:51 by teatime          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	load_image(t_solong *sl)
@@ -9,7 +21,7 @@ int	load_image(t_solong *sl)
 			&img_width, &img_height);
 	sl->sprite->wall = mlx_xpm_file_to_image(sl->data->mlx, "img/wall.xpm",
 			&img_width, &img_height);
-	sl->sprite->empty = mlx_xpm_file_to_image(sl->data->mlx, "img/cat.png",
+	sl->sprite->empty = mlx_xpm_file_to_image(sl->data->mlx, "img/empty.xpm",
 			&img_width, &img_height);
 	sl->sprite->loot = mlx_xpm_file_to_image(sl->data->mlx, "img/c.xpm",
 			&img_width, &img_height);

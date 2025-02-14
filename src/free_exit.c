@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_exit.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 17:33:31 by teatime           #+#    #+#             */
+/*   Updated: 2025/02/14 19:50:29 by teatime          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	free_mlx(t_solong *sl)
@@ -55,6 +67,8 @@ void	free_sl(t_solong *sl)
 		free(sl->pos);
 	if (sl->map)
 		free(sl->map);
+	if (sl->hud)
+		free(sl->hud);
 	free(sl);
 }
 int	free_destroy(t_solong *sl)
