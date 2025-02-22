@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:48 by teatime           #+#    #+#             */
-/*   Updated: 2025/02/14 19:48:55 by teatime          ###   ########.fr       */
+/*   Updated: 2025/02/22 12:49:32 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	move_up(t_solong *sl, t_map *map, t_pos *pos)
 		if (map->map[pos->px][pos->py] == 'O')
 		{
 			ft_printf("You won in %d steps\n", sl->count->stepc);
-			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
+			free_exit(sl, NULL, EXIT_SUCCESS);
 		}
 	}
 }
@@ -65,7 +65,7 @@ void	move_down(t_solong *sl, t_map *map, t_pos *pos)
 		if (map->map[pos->px][pos->py] == 'O')
 		{
 			ft_printf("You won in %d steps\n", sl->count->stepc);
-			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
+			free_exit(sl, NULL, EXIT_SUCCESS);
 		}
 	}
 }
@@ -81,7 +81,7 @@ void	move_left(t_solong *sl, t_map *map, t_pos *pos)
 		if (map->map[pos->px][pos->py] == 'O')
 		{
 			ft_printf("You won in %d steps\n", sl->count->stepc);
-			free_exit(sl, "Tia gagne fratelo\n", EXIT_SUCCESS);
+			free_exit(sl, NULL, EXIT_SUCCESS);
 		}
 	}
 }
@@ -97,7 +97,7 @@ void	move_right(t_solong *sl, t_map *map, t_pos *pos)
 		if (map->map[pos->px][pos->py] == 'O')
 		{
 			ft_printf("You won in %d steps\n", sl->count->stepc);
-			free_exit(sl, "Tia gagne fratelo", EXIT_SUCCESS);
+			free_exit(sl, NULL, EXIT_SUCCESS);
 		}
 	}
 }
