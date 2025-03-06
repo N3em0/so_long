@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
+#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/02/14 17:39:42 by teatime          ###   ########.fr        #
+#    Updated: 2025/03/04 14:12:29 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,12 @@ DEP		:=	$(OBJ:%.o=.d)
 AR	:=	ar -rcs
 
 CC		:=	cc
-CFLAGS	:=	-Wall -Wextra -Werror -g3
+CFLAGS	:=	-Wall -Wextra -Werror
 INCLUDE	:=	$(addprefix -I,$(HEAD)) -MMD -MP
 LIBDIR	:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
 LIBNAME	:=	$(addprefix -l,$(LIBS))
 
-MAKEFLAGS	+=	--silent --no-print-directory
+#MAKEFLAGS	+=	--silent --no-print-directory
 
 DIR_DUP	=	mkdir -p $(@D)
 
@@ -62,15 +62,13 @@ all	:	$(NAME)
 
 $(NAME)	:	$(OBJ) $(LIBS_TARGET)
 			$(CC) $(LIBDIR) $(OBJ) $(LIBNAME) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-			$(info CREATED $(NAME))
 
 $(LIBS_TARGET)	:
 			@$(MAKE) -C $(@D)
 
 $(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(DIR_DUP)
-			$(CC) $(CFLAGS) $(info INCLUDE paths: $(INCLUDE)) $(INCLUDE) -O3 -c -o $@ $<
-			$(info CREATED $@)
+			$(CC) $(CFLAGS) $(info INCLUDE paths: $(INCLUDE)) $(INCLUDE) -c -o $@ $<
 
 -include $(DEP)
 
@@ -96,4 +94,4 @@ re:
 
 .PHONY:	all clean fclean re
 
-.SILENT:
+#.SILENT:
