@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
+#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 17:59:37 by teatime           #+#    #+#              #
-#    Updated: 2025/02/14 17:32:23 by teatime          ###   ########.fr        #
+#    Updated: 2025/03/11 21:49:54 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HEAD	        :=	libft.h
+HEAD	        :=	include/libft.h
 
 NAME            :=	libft.a
 
@@ -81,14 +81,12 @@ RMF				:=	rm -rf
 
 all             :	$(NAME)
 
-$(NAME)			:	$(OBJ)
+$(NAME)			:	$(OBJ) $(HEAD)
 			$(AR) $(NAME) $(OBJ)
-			$(info CREATED $(NAME))
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 			$(DIR_DUP)
 			$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
-			$(info CREATED $@)
 
 -include $(DEP)
 

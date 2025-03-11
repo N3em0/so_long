@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:53 by teatime           #+#    #+#             */
-/*   Updated: 2025/02/14 20:19:04 by teatime          ###   ########.fr       */
+/*   Updated: 2025/03/11 14:45:07 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,23 +90,14 @@ void	valid_argument(int argc, char **argv, t_solong *sl)
 {
 	char	*str;
 	int	fd;
-	// int	fd_read;
-	// char *buffer;
 
 	if (argc != 2)
 		free_exit(sl, "Error\nWrong number of arguments", EXIT_FAILURE);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 	{
 		close(fd);
-		free_exit(sl, "Error\nFile doesn't exist, or you don't have the permission to read this file\n", EXIT_FAILURE);\
+		free_exit(sl, "Error\nFile doesn't exist, or you don't have the permission to read this file\n", EXIT_FAILURE);
 	}
-	// 	buffer = malloc(2 * sizeof(char));
-	// if ((fd_read = read(fd, buffer, 1)) < 0)
-	// {
-	// 	close(fd);
-	// 	free(buffer);
-	// 	free_exit(sl, "Error\nCan't read file\n", EXIT_FAILURE);
-	// }
 	str = ft_strrchr(argv[1], '.');
 	if (str == NULL)
 		free_exit(sl, "Error\nNo extension", EXIT_FAILURE);
