@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: teatime <teatime@student.42.fr>            +#+  +:+       +#+         #
+#    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 14:29:30 by egache            #+#    #+#              #
-#    Updated: 2025/02/14 16:27:34 by teatime          ###   ########.fr        #
+#    Updated: 2025/03/11 21:49:24 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HEAD			:=	get_next_line.h
+HEAD			:=	include/get_next_line.h
 
 NAME			:=	libgnl.a
 
@@ -40,14 +40,12 @@ RMF				:=	rm -rf
 
 all				:	$(NAME)
 
-$(NAME)			:	$(OBJ)
+$(NAME)			:	$(OBJ) $(HEAD)
 			$(AR) $(NAME) $(OBJ)
-			$(info CREATED $(NAME))
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 			$(DIR_DUP)
 			$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
-			$(info CREATED $@)
 
 -include	$(DEP)
 

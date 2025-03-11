@@ -6,7 +6,7 @@
 #    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/03/04 14:12:29 by egache           ###   ########.fr        #
+#    Updated: 2025/03/11 21:52:28 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ LIBS_TARGET	:=				\
 	get_next_line/libgnl.a	\
 	libft/libft.a			\
 	ft_printf/libprintf.a	\
+
+HEADER := include/so_long.h
 
 HEAD		:=				\
 include						\
@@ -51,24 +53,37 @@ INCLUDE	:=	$(addprefix -I,$(HEAD)) -MMD -MP
 LIBDIR	:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
 LIBNAME	:=	$(addprefix -l,$(LIBS))
 
-#MAKEFLAGS	+=	--silent --no-print-directory
-
 DIR_DUP	=	mkdir -p $(@D)
+
+MAKEFLAGS	+=	--no-print-directory
 
 RM	:=	rm -f
 RMF	:=	rm -rf
 
-all	:	$(NAME)
+BOLDGREEN	:= \e[1;32m
+BOLDBLUE 	:= \033[1;34m
+YELLOW		:= \033[1;93m
+WHITE 		:= \033[0m
+BLUE		:= \033[0;34m
+PURPLE		:= \e[1;35m
 
-$(NAME)	:	$(OBJ) $(LIBS_TARGET)
+all	:	.printsep $(NAME)
+		echo "$(BOLDBLUE)$(NAME) $(WHITE)compilation $(BOLDGREEN)done"
+		$(call SEPARATOR)
+
+$(NAME)	:	$(OBJ) $(LIBS_TARGET) $(HEADER)
 			$(CC) $(LIBDIR) $(OBJ) $(LIBNAME) -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+			$(call SEPARATOR)
+			echo "$(BOLDBLUE)$(NAME) $(WHITE)compilation  $(YELLOW)..."
+			$(call SEPARATOR)
 
-$(LIBS_TARGET)	:
+$(LIBS_TARGET)	: FORCE
 			@$(MAKE) -C $(@D)
+			@echo "$(BOLDBLUE)$(@D) $(WHITE)library $(BOLDGREEN)done"
 
 $(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(DIR_DUP)
-			$(CC) $(CFLAGS) $(info INCLUDE paths: $(INCLUDE)) $(INCLUDE) -c -o $@ $<
+			$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 -include $(DEP)
 
@@ -81,17 +96,30 @@ clean:
 			$(MAKE) clean -s -C mlx_linux
 
 fclean:	clean
+			$(call SEPARATOR)
+			echo "$(BOLDBLUE)$(NAME) $(WHITE)fclean  $(YELLOW)..."
 			$(RM) $(NAME)
 			$(MAKE) fclean -C get_next_line
 			$(MAKE) fclean -C libft
 			$(MAKE) fclean -C ft_printf
 			$(MAKE) clean -s -C mlx_linux
-			$(info CLEANED $(NAME))
+			$(call SEPARATOR)
+			echo "$(BOLDBLUE)$(NAME) $(WHITE)fclean  $(BOLDGREEN)done"
 
 re:
 			$(MAKE) fclean
 			$(MAKE) all
 
-.PHONY:	all clean fclean re
 
-#.SILENT:
+FORCE :
+
+.PHONY:	all clean fclean FORCE re
+
+.SILENT:
+
+.printsep:
+			$(call SEPARATOR)
+
+define	SEPARATOR
+						@echo "\n$(PURPLE)--------------------------$(WHITE)\n";
+endef
