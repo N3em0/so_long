@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:25 by teatime           #+#    #+#             */
-/*   Updated: 2025/02/14 17:43:51 by teatime          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:31:11 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ void	put_all_image(t_solong *sl)
 	}
 }
 
-void	replace_image(t_solong *sl, int newy, int newx, int oldy, int oldx)
+void	replace_image(t_solong *sl, int oldy, int oldx)
 {
 	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->player,
-		newy * 120, newx * 120);
+		sl->pos->py * 120, sl->pos->px * 120);
 	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
 		oldy * 120, oldx * 120);
 }
@@ -91,3 +91,14 @@ void	replace_exit(t_solong *sl)
 	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->oexit,
 		sl->pos->ey * 120, sl->pos->ex * 120);
 }
+
+// enum
+// {
+// 	R,
+// 	L,
+// 	U,
+// 	D
+// }
+// int dir
+// x, y, U
+// if (dir == U) x+1

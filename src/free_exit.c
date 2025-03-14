@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:31 by teatime           #+#    #+#             */
-/*   Updated: 2025/02/21 13:18:43 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 13:36:31 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ void	free_sl(t_solong *sl)
 		free(sl->hud);
 	free(sl);
 }
+
 int	free_destroy(t_solong *sl)
 {
 	free_exit(sl, "Window close by X\n", EXIT_SUCCESS);
 	return (0);
 }
+
 void	free_exit(t_solong *sl, char *str, int ret)
 {
 	if (sl)

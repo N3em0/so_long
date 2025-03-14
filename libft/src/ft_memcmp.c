@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:29:50 by egache            #+#    #+#             */
-/*   Updated: 2024/12/12 15:05:23 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:33:35 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {
-	size_t		i;
+	size_t				i;
 	const unsigned char	*s1;
 	const unsigned char	*s2;
 

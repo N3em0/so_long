@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_initialisation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:43 by teatime           #+#    #+#             */
-/*   Updated: 2025/02/14 18:50:48 by teatime          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:04:31 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	map_getsize(char **argv, t_solong *sl)
 	int		len;
 
 	fd = open(argv[1], O_RDONLY);
-	while ((str = get_next_line(fd)))
+	str = get_next_line(fd);
+	while (str)
 	{
 		len = ft_strlen(str) - 1;
 		if (sl->map->width == 0)
@@ -33,6 +34,7 @@ int	map_getsize(char **argv, t_solong *sl)
 		}
 		sl->map->height++;
 		free(str);
+		str = get_next_line(fd);
 	}
 	close(fd);
 	return (0);
@@ -58,33 +60,33 @@ int	map_alloc(t_solong *sl)
 	return (0);
 }
 
-int	map_copy(char **argv, t_solong *sl)
+int	map_copy(char **argv, t_solong *sl, t_map *map)
 {
 	int		fd;
 	char	*str;
 
 	fd = open(argv[1], O_RDONLY);
-	while ((str = get_next_line(fd)))
+	str = get_next_line(fd);
+	while (str)
 	{
-		while (str[sl->map->y] != '\0' && str[sl->map->y] != '\n')
+		while (str[map->y] != '\0' && str[map->y] != '\n')
 		{
-			if (str[sl->map->y] == 'E')
-				map_get_exitpos(sl, sl->map->x, sl->map->y);
-			if (str[sl->map->y] == 'P')
-				map_get_playerpos(sl, sl->map->x, sl->map->y);
-			sl->map->map[sl->map->x][sl->map->y] = str[sl->map->y];
-			sl->map->mapcopy[sl->map->x][sl->map->y] = sl->map->map[sl->map->x][sl->map->y];
-			sl->map->y++;
+			if (str[map->y] == 'E')
+				map_get_exitpos(sl, map->x, map->y);
+			if (str[map->y] == 'P')
+				map_get_playerpos(sl, map->x, map->y);
+			map->map[map->x][map->y] = str[map->y];
+			map->mapcopy[map->x][map->y++] = map->map[map->x][map->y];
 		}
-		sl->map->map[sl->map->x][sl->map->y] = '\0';
-		sl->map->mapcopy[sl->map->x++][sl->map->y] = '\0';
+		map->map[map->x][map->y] = '\0';
+		map->mapcopy[map->x++][map->y] = '\0';
 		free(str);
-		sl->map->y = 0;
+		str = get_next_line(fd);
+		map->y = 0;
 	}
-	close(fd);
 	sl->map->x = 0;
 	sl->map->y = 0;
-	return (0);
+	return (close(fd), 0);
 }
 
 void	map_get_exitpos(t_solong *sl, int x, int y)
@@ -92,6 +94,7 @@ void	map_get_exitpos(t_solong *sl, int x, int y)
 	sl->pos->ex = x;
 	sl->pos->ey = y;
 }
+
 void	map_get_playerpos(t_solong *sl, int x, int y)
 {
 	sl->pos->px = x;

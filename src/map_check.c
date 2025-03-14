@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:17 by teatime           #+#    #+#             */
-/*   Updated: 2025/02/14 17:33:21 by teatime          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:07:09 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	map_charcheck(t_map *map)
 	map->y = 0;
 	return (0);
 }
+
 int	map_wallcheck(t_map *map)
 {
 	while (map->y < map->width)
@@ -54,6 +55,7 @@ int	map_wallcheck(t_map *map)
 	map->y = 0;
 	return (0);
 }
+
 int	map_itemcheck(t_solong *sl)
 {
 	while (sl->map->x < sl->map->height)
@@ -79,22 +81,21 @@ int	map_itemcheck(t_solong *sl)
 	return (0);
 }
 
-void	flood_fill(char **tab, int x, int y, int height, int width, t_map *map)
+void	flood_fill(char **tab, int x, int y, t_map *map)
 {
 	if (x < 0 || x >= map->height || y < 0 || y >= map->width
 		|| tab[x][y] == '1' || tab[x][y] == 'B')
 		return ;
 	tab[x][y] = 'B';
-	flood_fill(tab, x + 1, y, height, width, map);
-	flood_fill(tab, x - 1, y, height, width, map);
-	flood_fill(tab, x, y + 1, height, width, map);
-	flood_fill(tab, x, y - 1, height, width, map);
+	flood_fill(tab, x + 1, y, map);
+	flood_fill(tab, x - 1, y, map);
+	flood_fill(tab, x, y + 1, map);
+	flood_fill(tab, x, y - 1, map);
 }
 
 int	map_pathcheck(t_solong *sl)
 {
-	flood_fill(sl->map->mapcopy, sl->pos->px, sl->pos->py, sl->map->height,
-		sl->map->width, sl->map);
+	flood_fill(sl->map->mapcopy, sl->pos->px, sl->pos->py, sl->map);
 	while (sl->map->x < sl->map->height)
 	{
 		while (sl->map->map[sl->map->x][sl->map->y] != '\0')
@@ -114,3 +115,16 @@ int	map_pathcheck(t_solong *sl)
 	sl->map->y = 0;
 	return (0);
 }
+
+// void	afunc(void)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	... func((t_point){x, y})
+// }
+
+// void	func(t_point a)
+// {
+// 	a.x a.y
+// }

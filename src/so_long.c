@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:53 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/11 14:45:07 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:19:55 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	map_initialisation(char **argv, t_solong *sl)
 		free_exit(sl, "Error\nWrong size\n", EXIT_FAILURE);
 	if (map_alloc(sl) == 1)
 		free_exit(sl, "Error\nMalloc Error", EXIT_FAILURE);
-	if (map_copy(argv, sl) == 1)
+	if (map_copy(argv, sl, sl->map) == 1)
 		free_exit(sl, "Error\nWrong fd", EXIT_FAILURE);
 	if (map_charcheck(sl->map) == 1)
 		free_exit(sl, "Error\nInvalid char\n", EXIT_FAILURE);
@@ -89,14 +89,16 @@ void	win_initialisation(t_solong *sl)
 void	valid_argument(int argc, char **argv, t_solong *sl)
 {
 	char	*str;
-	int	fd;
+	int		fd;
 
 	if (argc != 2)
 		free_exit(sl, "Error\nWrong number of arguments", EXIT_FAILURE);
-	if ((fd = open(argv[1], O_RDONLY)) < 0)
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
 	{
 		close(fd);
-		free_exit(sl, "Error\nFile doesn't exist, or you don't have the permission to read this file\n", EXIT_FAILURE);
+		free_exit(sl, "Error\nFile doesn't exist, or no permission\n",
+			EXIT_FAILURE);
 	}
 	str = ft_strrchr(argv[1], '.');
 	if (str == NULL)
