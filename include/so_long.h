@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/03/14 17:41:33 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 20:11:18 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,16 @@
 # include "libft.h"
 # include "mlx.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
+
+enum	e_keybinds
+{
+	UP = 119,
+	DOWN = 115,
+	RIGHT = 100,
+	LEFT = 97,
+	ESCAPE = 65307,
+};
 
 typedef int		(*t_funcptr)();
 
@@ -42,6 +50,7 @@ typedef struct s_map
 typedef struct s_sprite
 {
 	void		*player;
+	void		*eplayer;
 	void		*wall;
 	void		*empty;
 	void		*loot;
@@ -54,7 +63,6 @@ typedef struct s_count
 	int			playerc;
 	int			lootc;
 	int			lootedc;
-	int			lootingc;
 	int			exitc;
 	int			stepc;
 }				t_count;
