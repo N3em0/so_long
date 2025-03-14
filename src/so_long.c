@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:53 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/14 17:41:21 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 18:37:03 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv)
 	map_initialisation(argv, sl);
 	win_initialisation(sl);
 	mlx_key_hook(sl->data->win, key_hook, sl);
-	printf("x :%d\n", sl->map->x);
 	mlx_expose_hook(sl->data->win, fptr, sl);
 	mlx_hook(sl->data->win, 17, 1L << 0, free_destroy, sl);
 	mlx_loop(sl->data->mlx);
@@ -86,7 +85,6 @@ void	win_initialisation(t_solong *sl)
 	if (sl->data->win == NULL)
 		free_exit(sl, "Error\nWindow instance creation failed\n", EXIT_FAILURE);
 	put_all_image(sl);
-	display_hud(sl);
 }
 
 void	valid_argument(int argc, char **argv, t_solong *sl)
