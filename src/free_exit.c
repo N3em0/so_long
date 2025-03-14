@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:31 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/14 13:36:31 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 20:03:25 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	free_mlx(t_solong *sl)
 {
 	if (sl->sprite->player)
 		mlx_destroy_image(sl->data->mlx, sl->sprite->player);
+	if (sl->sprite->eplayer)
+		mlx_destroy_image(sl->data->mlx, sl->sprite->eplayer);
 	if (sl->sprite->wall)
 		mlx_destroy_image(sl->data->mlx, sl->sprite->wall);
 	if (sl->sprite->empty)

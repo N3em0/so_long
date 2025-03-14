@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:48 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/14 16:07:13 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 20:08:17 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,15 @@
 
 int	key_hook(int keycode, t_solong *sl)
 {
-	if (keycode == 119)
-	{
+	if (keycode == UP)
 		move_up(sl, sl->map, sl->pos);
-		collect_loot(sl);
-	}
-	if (keycode == 115)
-	{
+	if (keycode == DOWN)
 		move_down(sl, sl->map, sl->pos);
-		collect_loot(sl);
-	}
-	if (keycode == 97)
-	{
+	if (keycode == LEFT)
 		move_left(sl, sl->map, sl->pos);
-		collect_loot(sl);
-	}
-	if (keycode == 100)
-	{
+	if (keycode == RIGHT)
 		move_right(sl, sl->map, sl->pos);
-		collect_loot(sl);
-	}
-	else if (keycode == 65307)
+	if (keycode == ESCAPE)
 		free_exit(sl, "Window closed by escape\n", EXIT_SUCCESS);
 	return (0);
 }
@@ -45,6 +33,7 @@ void	move_up(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->px--;
 		sl->count->stepc++;
+		collect_loot(sl);
 		replace_image(sl, pos->py, pos->px + 1);
 		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
@@ -61,6 +50,7 @@ void	move_down(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->px++;
 		sl->count->stepc++;
+		collect_loot(sl);
 		replace_image(sl, pos->py, pos->px - 1);
 		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
@@ -77,6 +67,7 @@ void	move_left(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->py--;
 		sl->count->stepc++;
+		collect_loot(sl);
 		replace_image(sl, pos->py + 1, pos->px);
 		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
@@ -93,6 +84,7 @@ void	move_right(t_solong *sl, t_map *map, t_pos *pos)
 	{
 		pos->py++;
 		sl->count->stepc++;
+		collect_loot(sl);
 		replace_image(sl, pos->py - 1, pos->px);
 		display_hud(sl);
 		if (map->map[pos->px][pos->py] == 'O')
