@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:25 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/14 14:31:11 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:34:19 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ void	put_image(t_solong *sl)
 
 void	put_all_image(t_solong *sl)
 {
+	sl->map->x = 0;
+	sl->map->y = 0;
 	while (sl->map->x < sl->map->height)
 	{
 		while (sl->map->y < sl->map->width)
 		{
 			put_image(sl);
+			replace_exit(sl);
 			sl->map->y++;
 		}
 		sl->map->y = 0;
@@ -82,14 +85,31 @@ void	replace_image(t_solong *sl, int oldy, int oldx)
 {
 	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->player,
 		sl->pos->py * 120, sl->pos->px * 120);
-	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
-		oldy * 120, oldx * 120);
+	if (sl->map->map[sl->pos->px][sl->pos->py] != 'C'
+		&& sl->map->map[sl->pos->px][sl->pos->py] != 'O')
+		sl->map->map[sl->pos->px][sl->pos->py] = 'P';
+	if ((oldx == sl->pos->ex && oldy == sl->pos->ey)
+		&& sl->map->map[oldx][oldy] != 'O')
+	{
+		sl->map->map[oldx][oldy] = 'E';
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->cexit,
+			oldy * 120, oldx * 120);
+	}
+	else
+	{
+		sl->map->map[oldx][oldy] = '0';
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->empty,
+			oldy * 120, oldx * 120);
+	}
 }
 
 void	replace_exit(t_solong *sl)
 {
-	mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->oexit,
-		sl->pos->ey * 120, sl->pos->ex * 120);
+	if (sl->map->map[sl->pos->ex][sl->pos->ey] == 'O')
+	{
+		mlx_put_image_to_window(sl->data->mlx, sl->data->win, sl->sprite->oexit,
+			sl->pos->ey * 120, sl->pos->ex * 120);
+	}
 }
 
 // enum
