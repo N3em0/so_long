@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teatime <teatime@student.42.fr>            +#+  +:+       +#+        */
+/*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/02/14 19:39:05 by teatime          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:30:28 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "../ft_printf/include/ft_printf.h"
 # include "get_next_line.h"
 # include "libft.h"
 # include "mlx.h"
-# include "../ft_printf/include/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -66,12 +66,12 @@ typedef struct s_pos
 
 typedef struct s_hud
 {
-	char *lootedtmp;
-	char *loottmp;
-	char *lootcount;
-	char *hudloot;
-	char *stepcount;
-	char *hudstep;
+	char		*lootedtmp;
+	char		*loottmp;
+	char		*lootcount;
+	char		*hudloot;
+	char		*stepcount;
+	char		*hudstep;
 }				t_hud;
 
 typedef struct s_solong
@@ -94,20 +94,18 @@ int				map_getsize(char **argv, t_solong *sl);
 void			map_get_playerpos(t_solong *sl, int x, int y);
 void			map_get_exitpos(t_solong *sl, int x, int y);
 int				map_alloc(t_solong *sl);
-int				map_copy(char **argv, t_solong *sl);
+int				map_copy(char **argv, t_solong *sl, t_map *map);
 
 int				map_wallcheck(t_map *map);
 int				map_itemcheck(t_solong *sl);
 int				map_charcheck(t_map *map);
-void			flood_fill(char **tab, int x, int y, int height, int width,
-					t_map *map);
+void			flood_fill(char **tab, int x, int y, t_map *map);
 int				map_pathcheck(t_solong *sl);
 
 int				load_image(t_solong *sl);
 void			put_image(t_solong *sl);
 void			put_all_image(t_solong *sl);
-void			replace_image(t_solong *sl, int newy, int newx, int oldy,
-					int oldx);
+void			replace_image(t_solong *sl, int oldy, int oldx);
 void			replace_exit(t_solong *sl);
 
 int				key_hook(int keycode, t_solong *sl);

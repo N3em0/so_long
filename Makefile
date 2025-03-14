@@ -6,25 +6,25 @@
 #    By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 15:58:15 by egache            #+#    #+#              #
-#    Updated: 2025/03/11 21:52:28 by egache           ###   ########.fr        #
+#    Updated: 2025/03/14 14:47:26 by egache           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LIBS		:=	mlx gnl ft printf m
 LIBS_TARGET	:=				\
-	mlx_linux/libmlx.a		\
-	get_next_line/libgnl.a	\
 	libft/libft.a			\
+	mlx_linux/libmlx.a		\
 	ft_printf/libprintf.a	\
+	get_next_line/libgnl.a	\
 
 HEADER := include/so_long.h
 
 HEAD		:=				\
-include						\
-mlx_linux					\
-get_next_line/include		\
 libft/include				\
 ft_printf/include			\
+mlx_linux					\
+get_next_line/include		\
+include						\
 
 NAME	:=	so_long
 
