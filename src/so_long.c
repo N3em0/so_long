@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:53 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/14 14:19:55 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:41:21 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main(int argc, char **argv)
 {
-	t_solong	*sl;
+	t_solong		*sl;
+	const t_funcptr	fptr = (t_funcptr)put_all_image;
 
 	sl = ft_calloc(1, sizeof(t_solong));
 	if (!sl)
@@ -24,6 +25,8 @@ int	main(int argc, char **argv)
 	map_initialisation(argv, sl);
 	win_initialisation(sl);
 	mlx_key_hook(sl->data->win, key_hook, sl);
+	printf("x :%d\n", sl->map->x);
+	mlx_expose_hook(sl->data->win, fptr, sl);
 	mlx_hook(sl->data->win, 17, 1L << 0, free_destroy, sl);
 	mlx_loop(sl->data->mlx);
 	return (0);
@@ -96,7 +99,6 @@ void	valid_argument(int argc, char **argv, t_solong *sl)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		close(fd);
 		free_exit(sl, "Error\nFile doesn't exist, or no permission\n",
 			EXIT_FAILURE);
 	}
