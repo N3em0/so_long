@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:53 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/14 18:37:03 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/25 10:32:26 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	main(int argc, char **argv)
 {
-	t_solong		*sl;
-	const t_funcptr	fptr = (t_funcptr)put_all_image;
+	t_solong	*sl;
+	t_funcptr	fptr;
 
+	fptr = (t_funcptr)put_all_image;
 	sl = ft_calloc(1, sizeof(t_solong));
 	if (!sl)
 		return (1);
