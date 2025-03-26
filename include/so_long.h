@@ -6,14 +6,14 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:12:16 by egache            #+#    #+#             */
-/*   Updated: 2025/03/14 20:11:18 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/25 15:41:19 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../ft_printf/include/ft_printf.h"
+# include "ft_printf.h"
 # include "get_next_line.h"
 # include "libft.h"
 # include "mlx.h"
