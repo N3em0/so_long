@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:43 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/26 19:31:53 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/27 10:51:01 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	map_alloc(t_solong *sl)
 	int	i;
 
 	i = 0;
-	sl->map->map = NULL;//(char **)malloc((sl->map->height) * sizeof(char *));
+	sl->map->map = (char **)malloc((sl->map->height) * sizeof(char *));
 	sl->map->mapcopy = (char **)malloc((sl->map->height) * sizeof(char *));
 	if (!sl->map->map || !sl->map->mapcopy)
 		return (1);
