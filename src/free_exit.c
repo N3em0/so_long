@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:31 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/26 19:33:46 by egache           ###   ########.fr       */
+/*   Updated: 2025/03/27 10:50:38 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,21 @@ void	free_map(t_map *map)
 {
 	int	i;
 
-	if (map && map->map)
+	if (map)
 	{
-		i = 0;
-		while (i < map->height)
-			free(map->map[i++]);
+		if (map->map && map->mapcopy)
+		{
+			i = 0;
+			while (i < map->height)
+				free(map->map[i++]);
+		}
 		free(map->map);
-	}
-	if (map && map->mapcopy)
-	{
-		i = 0;
-		while (i < map->height)
-			free(map->mapcopy[i++]);
+		if (map->mapcopy && map->map)
+		{
+			i = 0;
+			while (i < map->height)
+				free(map->mapcopy[i++]);
+		}
 		free(map->mapcopy);
 	}
 }
