@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:53 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/27 10:52:50 by egache           ###   ########.fr       */
+/*   Updated: 2025/04/02 16:13:26 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	map_initialisation(char **argv, t_solong *sl)
 	if (map_getsize(argv, sl) == 1)
 		free_exit(sl, "Error\nWrong size\n", EXIT_FAILURE);
 	if (map_alloc(sl) == 1)
-		free_exit(sl, "Error\nMalloc Error", EXIT_FAILURE);
+		free_exit(sl, "Error\nMalloc Error\n", EXIT_FAILURE);
 	if (map_copy(argv, sl, sl->map) == 1)
-		free_exit(sl, "Error\nWrong fd", EXIT_FAILURE);
+		free_exit(sl, "Error\nWrong fd\n", EXIT_FAILURE);
 	if (map_charcheck(sl->map) == 1)
 		free_exit(sl, "Error\nInvalid char\n", EXIT_FAILURE);
 	if (map_wallcheck(sl->map) == 1)
@@ -69,7 +69,7 @@ void	map_initialisation(char **argv, t_solong *sl)
 	if (map_itemcheck(sl) == 1)
 		free_exit(sl, "Error\nWrong parameters\n", EXIT_FAILURE);
 	if (map_pathcheck(sl) == 1)
-		free_exit(sl, "Error\nGame is rigged you can't win\n", EXIT_FAILURE);
+		free_exit(sl, "Error\nYou can't win\n", EXIT_FAILURE);
 }
 
 void	win_initialisation(t_solong *sl)
@@ -94,7 +94,7 @@ void	valid_argument(int argc, char **argv, t_solong *sl)
 	int		fd;
 
 	if (argc != 2)
-		free_exit(sl, "Error\nWrong number of arguments", EXIT_FAILURE);
+		free_exit(sl, "Error\nWrong number of arguments\n", EXIT_FAILURE);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
@@ -103,7 +103,7 @@ void	valid_argument(int argc, char **argv, t_solong *sl)
 	}
 	str = ft_strrchr(argv[1], '.');
 	if (str == NULL)
-		free_exit(sl, "Error\nNo extension", EXIT_FAILURE);
+		free_exit(sl, "Error\nNo extension\n", EXIT_FAILURE);
 	if (ft_strncmp(str, ".ber", 5) != 0)
-		free_exit(sl, "Error\nWrong file extension", EXIT_FAILURE);
+		free_exit(sl, "Error\nWrong file extension\n", EXIT_FAILURE);
 }

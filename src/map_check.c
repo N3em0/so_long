@@ -6,7 +6,7 @@
 /*   By: egache <egache@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 17:33:17 by teatime           #+#    #+#             */
-/*   Updated: 2025/03/14 14:07:09 by egache           ###   ########.fr       */
+/*   Updated: 2025/04/02 15:40:16 by egache           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,16 +115,3 @@ int	map_pathcheck(t_solong *sl)
 	sl->map->y = 0;
 	return (0);
 }
-
-// void	afunc(void)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	... func((t_point){x, y})
-// }
-
-// void	func(t_point a)
-// {
-// 	a.x a.y
-// }
